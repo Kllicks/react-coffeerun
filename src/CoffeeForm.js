@@ -14,6 +14,18 @@ class CoffeeForm extends Component {
         this.state = {...defaultOrder};
     }
 
+    componentDidMount() {
+        console.log(`about to do the thing`)
+        fetch('https://dc-coffeerun.herokuapp.com/api/coffeeOrders')
+            .then(r => r.json())
+            .then(coffeeArray => {
+                console.table(Object.values(coffeeArray))
+                this.setState({
+                    list: Object.values(coffeeArray)
+                })
+            })
+    }
+
     render() {
         return (
             <form onSubmit={this._doSubmit}>
